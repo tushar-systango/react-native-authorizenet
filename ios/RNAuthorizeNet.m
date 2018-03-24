@@ -7,29 +7,36 @@
 {
     return dispatch_get_main_queue();
 }
+
 RCT_EXPORT_MODULE()
 
-//// This method will call to with macAddress param of PBHoney device , it with provide connection status of device
-RCT_EXPORT_METHOD(connectWithDevice:(NSDictionary *)paymentValues callBack:(RCTResponseSenderBlock)callback)
+static NSString *const LOGIN_ID = @"LOGIN_ID";
+static NSString *const CLIENT_KEY = @"CLIENT_KEY";
+static NSString *const CARD_NO = @"CARD_NO";
+static NSString *const EXPIRATION_MONTH = @"EXPIRATION_MONTH";
+static NSString *const EXPIRATION_YEAR = @"EXPIRATION_YEAR";
+static NSString *const CVV_NO = @"CVV_NO";
+static NSString *const ZIP_CODE = @"ZIP_CODE";
+static NSString *const ACCOUNT_HOLDER_NAME = @"ACCOUNT_HOLDER_NAME";
+static NSString *const ACCOUNT_HOLDER_EMAIL = @"ACCOUNT_HOLDER_EMAIL";
+
+
+RCT_EXPORT_METHOD(payWithAuthorizeNet:(NSDictionary *)paymentValues callBack:(RCTResponseSenderBlock)callback)
 {
     AcceptSDKHandler *handler = [[AcceptSDKHandler alloc] initWithEnvironment:AcceptSDKEnvironmentENV_TEST];
     AcceptSDKRequest *request = [[AcceptSDKRequest alloc] init];
-    request.merchantAuthentication.name =@"856JtSmF"; //name
-    request.merchantAuthentication.clientKey = @"8zbUxYH9tQ385Et28u28nd2xV3HjPX8q6R5jsSp54sUyy4gJf59dH44ELMbfZWXX"; //clientkey
-    request.securePaymentContainerRequest.webCheckOutDataType.token.cardNumber = @"370000000000002"; //cardnumber
-    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationMonth = @"10";
-    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationYear = @"2022";
-    request.securePaymentContainerRequest.webCheckOutDataType.token.cardCode = @"5556";
-    
+    request.merchantAuthentication.name =[paymentValues valueForKey:LOGIN_ID];
+    request.merchantAuthentication.clientKey =[paymentValues valueForKey:CLIENT_KEY];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardNumber =[paymentValues valueForKey:CARD_NO];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationMonth = [paymentValues valueForKey:EXPIRATION_MONTH];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationYear = [paymentValues valueForKey:EXPIRATION_YEAR];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardCode = [paymentValues valueForKey:CVV_NO];
     [handler getTokenWithRequest:request successHandler:^(AcceptSDKTokenResponse * _Nonnull token) {
         //NSLog(@"success %@", token.getOpaqueData.getDataValue);
-        callback(@[YES,token.getOpaqueData.getDataValue]);
+        callback(@[@YES,token.getOpaqueData.getDataValue]);
     } failureHandler:^(AcceptSDKErrorResponse * _Nonnull error) {
-        callback(@[NO,error]);
+        callback(@[@NO,error]);
     }];
     
 }
 
 
 @end
-  
+
+
