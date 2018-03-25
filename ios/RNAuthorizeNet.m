@@ -39,4 +39,3 @@ RCT_EXPORT_METHOD(payWithAuthorizeNet:(NSDictionary *)paymentValues callBack:(RC
 
 @end
 
-
