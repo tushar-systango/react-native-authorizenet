@@ -29,9 +29,10 @@ RCT_EXPORT_METHOD(payWithAuthorizeNet:(NSDictionary *)paymentValues callBack:(RC
     request.merchantAuthentication.clientKey =[paymentValues valueForKey:CLIENT_KEY];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardNumber =[paymentValues valueForKey:CARD_NO];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationMonth = [paymentValues valueForKey:EXPIRATION_MONTH];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationYear = [paymentValues valueForKey:EXPIRATION_YEAR];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardCode = [paymentValues valueForKey:CVV_NO];
     [handler getTokenWithRequest:request successHandler:^(AcceptSDKTokenResponse * _Nonnull token) {
         //NSLog(@"success %@", token.getOpaqueData.getDataValue);
-        callback(@[@YES,token.getOpaqueData.getDataValue]);
+        NSDictionary *responsDict = @{@"dataDescriptor":token.getOpaqueData.getDataDescriptor,@"dataValue":token.getOpaqueData.getDataValue};
+        callback(@[@YES,responsDict]);
     } failureHandler:^(AcceptSDKErrorResponse * _Nonnull error) {
-        callback(@[@NO,error]);
+        callback(@[@NO,@"Error while add card."]);
     }];
     
 }
