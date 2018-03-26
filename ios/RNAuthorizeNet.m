@@ -19,6 +19,9 @@ static NSString *const CVV_NO = @"CVV_NO";
 static NSString *const ZIP_CODE = @"ZIP_CODE";
 static NSString *const ACCOUNT_HOLDER_NAME = @"ACCOUNT_HOLDER_NAME";
 static NSString *const ACCOUNT_HOLDER_EMAIL = @"ACCOUNT_HOLDER_EMAIL";
+static NSString *const DATA_DESCRIPTOR = @"DATA_DESCRIPTOR";
+static NSString *const DATA_VALUE = @"DATA_VALUE";
+
 
 
 RCT_EXPORT_METHOD(payWithAuthorizeNet:(NSDictionary *)paymentValues callBack:(RCTResponseSenderBlock)callback)
@@ -29,7 +32,7 @@ RCT_EXPORT_METHOD(payWithAuthorizeNet:(NSDictionary *)paymentValues callBack:(RC
     request.merchantAuthentication.clientKey =[paymentValues valueForKey:CLIENT_KEY];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardNumber =[paymentValues valueForKey:CARD_NO];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationMonth = [paymentValues valueForKey:EXPIRATION_MONTH];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationYear = [paymentValues valueForKey:EXPIRATION_YEAR];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardCode = [paymentValues valueForKey:CVV_NO];
     [handler getTokenWithRequest:request successHandler:^(AcceptSDKTokenResponse * _Nonnull token) {
         //NSLog(@"success %@", token.getOpaqueData.getDataValue);
-        NSDictionary *responsDict = @{@"dataDescriptor":token.getOpaqueData.getDataDescriptor,@"dataValue":token.getOpaqueData.getDataValue};
+        NSDictionary *responsDict = @{DATA_DESCRIPTOR:token.getOpaqueData.getDataDescriptor,DATA_VALUE:token.getOpaqueData.getDataValue};
         callback(@[@YES,responsDict]);
     } failureHandler:^(AcceptSDKErrorResponse * _Nonnull error) {
         callback(@[@NO,@"Error while add card."]);
