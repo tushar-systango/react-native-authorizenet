@@ -34,14 +34,6 @@
       compile project(':react-native-authorize-net')
   	```
 
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNAuthorizeNet.sln` in `node_modules/react-native-authorize-net/windows/RNAuthorizeNet.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using Authorize.Net.RNAuthorizeNet;` to the usings at the top of the file
-  - Add `new RNAuthorizeNetPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
 
 ## Usage
 ```javascript
