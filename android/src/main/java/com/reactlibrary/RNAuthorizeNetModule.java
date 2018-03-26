@@ -2,14 +2,15 @@
 package com.reactlibrary;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.util.Log;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 
 import net.authorize.acceptsdk.AcceptSDKApiClient;
 import net.authorize.acceptsdk.datamodel.merchant.ClientKeyBasedMerchantAuthentication;
@@ -25,34 +26,29 @@ import java.util.HashMap;
 
 public class RNAuthorizeNetModule extends ReactContextBaseJavaModule {
 
-  static String CARD_NUMBER = "CARD_NUMBER";
+  static String CARD_NO = "CARD_NO";
   static String EXPIRATION_MONTH = "EXPIRATION_MONTH";
   static String EXPIRATION_YEAR = "EXPIRATION_YEAR";
-  static String CARD_CVV = "CARD_CVV";
+  static String CVV_NO = "CVV_NO";
   static String ZIP_CODE = "ZIP_CODE";
   static String CARD_HOLDER_NAME = "CARD_HOLDER_NAME";
   static String LOGIN_ID = "LOGIN_ID";
   static String CLIENT_KEY = "CLIENT_KEY";
-
+  static String ACCOUNT_HOLDER_NAME = "ACCOUNT_HOLDER_NAME";
+  static String ACCOUNT_HOLDER_EMAIL = "ACCOUNT_HOLDER_EMAIL";
+  static String DATA_DESCRIPTOR = "DATA_DESCRIPTOR";
+  static String DATA_VALUE = "DATA_VALUE";
   private final ReactApplicationContext reactContext;
   private static Activity mCurrentActivity = null;
 
+  AcceptSDKApiClient apiClient;
 
 
-  Activity getActivity(){
-    return getCurrentActivity();
-  }
-  AcceptSDKApiClient apiClient = new AcceptSDKApiClient.Builder (getActivity(),
-          AcceptSDKApiClient.Environment.SANDBOX)
-          .connectionTimeout(5000) // optional connection time out in milliseconds
-          .build();
-
-
-  public CardData prepareCardDataFromFields(HashMap cardValue){
-    CardData cardData = new CardData.Builder(cardValue.get(CARD_NUMBER).toString(),
-            cardValue.get(EXPIRATION_MONTH).toString(), // MM
-            cardValue.get(EXPIRATION_YEAR).toString()) // YYYY
-            .cvvCode(cardValue.get(CARD_CVV).toString()) // Optional
+  public CardData prepareCardDataFromFields(ReadableMap cardValue){
+    CardData cardData = new CardData.Builder(cardValue.getString(CARD_NO),
+            cardValue.getString(EXPIRATION_MONTH),
+            cardValue.getString(EXPIRATION_YEAR))
+            .cvvCode(cardValue.getString(CVV_NO)) // Optional
             //.zipCode(ZIP_CODE)// Optional
             //.cardHolderName(CARD_HOLDER_NAME)// Optional
             .build();
@@ -62,10 +58,10 @@ public class RNAuthorizeNetModule extends ReactContextBaseJavaModule {
 
 
 
-  private EncryptTransactionObject prepareTransactionObject(HashMap cardValue) {
+  private EncryptTransactionObject prepareTransactionObject(ReadableMap cardValue) {
     ClientKeyBasedMerchantAuthentication merchantAuthentication =
             ClientKeyBasedMerchantAuthentication.
-                    createMerchantAuthentication(cardValue.get(LOGIN_ID).toString(), cardValue.get(CLIENT_KEY).toString());
+                    createMerchantAuthentication(cardValue.getString(LOGIN_ID), cardValue.getString(CLIENT_KEY));
 
     // create a transaction object by calling the predefined api for creation
     return TransactionObject.
@@ -79,6 +75,7 @@ public class RNAuthorizeNetModule extends ReactContextBaseJavaModule {
   public RNAuthorizeNetModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+
   }
 
 
@@ -91,10 +88,13 @@ public class RNAuthorizeNetModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void payWithAuthorizeNet(HashMap cardValue, final Callback responseCallBack){
+  public void payWithAuthorizeNet(ReadableMap cardValue, final Callback responseCallBack){
     try {
+      apiClient = new AcceptSDKApiClient.Builder (reactContext,
+              AcceptSDKApiClient.Environment.SANDBOX)
+              .connectionTimeout(5000) // optional connection time out in milliseconds
+              .build();
       EncryptTransactionObject transactionObject = prepareTransactionObject(cardValue);
-
       apiClient.getTokenWithRequest(transactionObject, new EncryptTransactionCallback() {
         @Override
         public void onErrorReceived(ErrorTransactionResponse error) {
@@ -103,14 +103,14 @@ public class RNAuthorizeNetModule extends ReactContextBaseJavaModule {
 
         @Override
         public void onEncryptionFinished(EncryptTransactionResponse response) {
-          HashMap<String, String> cardResponse = new HashMap<String, String>();
-          cardResponse.put("dataDescriptor",response.getDataDescriptor());
-          cardResponse.put("dataValue",response.getDataValue());
+          WritableMap cardResponse = Arguments.createMap();
+          cardResponse.putString(DATA_DESCRIPTOR,response.getDataDescriptor());
+          cardResponse.putString(DATA_VALUE,response.getDataValue());
           responseCallBack.invoke(true,cardResponse);
         }
       });
 
-    } catch (NullPointerException e) {
+    } catch (Exception e) {
       // Handle exception transactionObject or callback is null.
       responseCallBack.invoke(false,"Error while add card.");
     }
