@@ -88,7 +88,7 @@ public class RNAuthorizeNetModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void payWithAuthorizeNet(ReadableMap cardValue, final Callback responseCallBack){
+  public void getTokenWithRequestForCard(ReadableMap cardValue, final Callback responseCallBack){
     try {
       apiClient = new AcceptSDKApiClient.Builder (reactContext,
               AcceptSDKApiClient.Environment.SANDBOX)

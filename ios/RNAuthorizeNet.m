@@ -24,7 +24,7 @@ static NSString *const DATA_VALUE = @"DATA_VALUE";
 
 
 
-RCT_EXPORT_METHOD(payWithAuthorizeNet:(NSDictionary *)paymentValues callBack:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getTokenWithRequestForCard:(NSDictionary *)paymentValues callBack:(RCTResponseSenderBlock)callback)
 {
     AcceptSDKHandler *handler = [[AcceptSDKHandler alloc] initWithEnvironment:AcceptSDKEnvironmentENV_TEST];
     AcceptSDKRequest *request = [[AcceptSDKRequest alloc] init];
