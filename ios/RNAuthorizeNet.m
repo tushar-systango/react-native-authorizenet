@@ -24,9 +24,9 @@ static NSString *const DATA_VALUE = @"DATA_VALUE";
 
 
 
-RCT_EXPORT_METHOD(getTokenWithRequestForCard:(NSDictionary *)paymentValues callBack:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(payWithAuthorizeNet:(NSDictionary *)paymentValues isProduction:(BOOL)isProduction  callBack:(RCTResponseSenderBlock)callback)
 {
-    AcceptSDKHandler *handler = [[AcceptSDKHandler alloc] initWithEnvironment:AcceptSDKEnvironmentENV_TEST];
+    AcceptSDKHandler *handler = [[AcceptSDKHandler alloc] initWithEnvironment:isProduction?AcceptSDKEnvironmentENV_LIVE:AcceptSDKEnvironmentENV_TEST];
     AcceptSDKRequest *request = [[AcceptSDKRequest alloc] init];
     request.merchantAuthentication.name =[paymentValues valueForKey:LOGIN_ID];
     request.merchantAuthentication.clientKey =[paymentValues valueForKey:CLIENT_KEY];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardNumber =[paymentValues valueForKey:CARD_NO];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationMonth = [paymentValues valueForKey:EXPIRATION_MONTH];    request.securePaymentContainerRequest.webCheckOutDataType.token.expirationYear = [paymentValues valueForKey:EXPIRATION_YEAR];    request.securePaymentContainerRequest.webCheckOutDataType.token.cardCode = [paymentValues valueForKey:CVV_NO];

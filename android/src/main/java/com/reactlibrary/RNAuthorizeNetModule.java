@@ -88,12 +88,19 @@ public class RNAuthorizeNetModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getTokenWithRequestForCard(ReadableMap cardValue, final Callback responseCallBack){
+  public void getTokenWithRequestForCard(ReadableMap cardValue,boolean isProduction, final Callback responseCallBack){
     try {
-      apiClient = new AcceptSDKApiClient.Builder (reactContext,
-              AcceptSDKApiClient.Environment.SANDBOX)
-              .connectionTimeout(5000) // optional connection time out in milliseconds
-              .build();
+      if(isProduction == true){
+        apiClient = new AcceptSDKApiClient.Builder (reactContext,
+                AcceptSDKApiClient.Environment.PRODUCTION)
+                .connectionTimeout(5000) // optional connection time out in milliseconds
+                .build();
+      }else{
+        apiClient = new AcceptSDKApiClient.Builder (reactContext,
+                AcceptSDKApiClient.Environment.SANDBOX)
+                .connectionTimeout(5000) // optional connection time out in milliseconds
+                .build();
+      }
       EncryptTransactionObject transactionObject = prepareTransactionObject(cardValue);
       apiClient.getTokenWithRequest(transactionObject, new EncryptTransactionCallback() {
         @Override
