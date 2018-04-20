@@ -75,3 +75,7 @@ import RNAuthorizeNet from 'react-native-authorize-net-acceptsdk';
 |------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------|-----------------------------------------------------------------------------------|
 | getTokenWithRequestForCard              | This method is used to get response object {with `data value` and `data descriptor`} and success {bool value to show if the card added successfully} for your credit card, you want to add to authorize.net.                       | cardValues, isProduction              | `cardValues`: the card detail object, which can hold the values with keys as described above. `isProduction`: this indicate if the processing is done for production mode                   |
 	
+
+### Contributor
+
+* [Tushar S](mailto:tushar@systango.com)
