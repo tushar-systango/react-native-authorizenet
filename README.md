@@ -75,4 +75,22 @@ DATA_VALUE = "card data value"
 | Method                 | Method Description                                                                                                                        | Parameters    | Parameters Description                                                            |
 |------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------|-----------------------------------------------------------------------------------|
 | getTokenWithRequestForCard              | This method is used to get response object {with `data value` and `data descriptor`} and success {bool value to show if the card added successfully} for your credit card, you want to add to authorize.net.                       | cardValues, isProduction              | `cardValues`: the card detail object, which can hold the values with keys as described above. `isProduction`: this indicate if the processing is done for production mode                   |
-  
+	
+	
+
+
+
+| Method                  | Method Description                                                                                                   | Parameters    | Parameters Description                              |
+|-------------------------|----------------------------------------------------------------------------------------------------------------------|---------------|-----------------------------------------------------|
+| play                    | Play audio form path with options                                                                                    | path, options | `path`: local audio path `options`: the playing options |
+| playWithUrl             |                                                                                                                      | url, options  | `url`: audio url `options`: the playing options         |
+| pause                   | Pause playing                                                                                                        |               |                                                     |
+| unpause                 | Unpause playing                                                                                                      |               |                                                     |
+| stop                    | Stop playing audio                                                                                                   |               |                                                     |
+| skipToSeconds           | Play audio from some position, the unit is second                                                                    | position      | `position`: use second as unit                        |
+| onProgress              | Playing progress reporting callback, must call function setProgressSubscription to subscribe the onProgress callback | data          |                                                     |
+| setProgressSubscription | onProgress callback subscriotion                                                                                     |               |                                                     |
+| onFinished              | Playing finish callback, must call function setFinishedSubscription to subscribe the onFinished callback             |               |                                                     |
+| setFinishedSubscription | onFinished callback subscription                                                                                     |               |                                                     |
+| getOutputs              | Get current available outputs, will return an array of String, for example the outputs can be: `["Phone", "Phone Speaker", "Bluetooth"]`  |               |                                                     |
+
