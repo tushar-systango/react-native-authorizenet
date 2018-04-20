@@ -3,7 +3,7 @@
 
 ## Purpose
 `react-native-authorize-net-acceptsdk` is a package that allows you to:
-- Fetch token by sending `card detail` to `AcceptSDK` for iOS and Android. You need to use this token to get the values of `data` 
+- Fetch token by sending `card detail` to `AcceptSDK` for iOS and Android. You need to use this token to get the values of `DATA DESCRIPTOR` and `DATA VALUE` from the token.
 
 
 ## Getting started
@@ -74,5 +74,5 @@ DATA_VALUE = "card data value"
 #### AudioRecorder
 | Method                 | Method Description                                                                                                                        | Parameters    | Parameters Description                                                            |
 |------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------|-----------------------------------------------------------------------------------|
-| getTokenWithRequestForCard | This method is used to get the token for your credit card, you want to add to authorize.net. | cardValues, isProduction | `cardValues`: the card detail object, which can hold the values with keys as described above. `isProduction`: this indicate if the processing is done for production mode|
+| getTokenWithRequestForCard | This method is used to get response object {with `data value` and `data descriptor`} and success {bool value to show if the card added successfully} for your credit card, you want to add to authorize.net. | cardValues, isProduction | `cardValues`: the card detail object, which can hold the values with keys as described above. `isProduction`: this indicate if the processing is done for production mode|
   
