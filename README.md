@@ -41,7 +41,7 @@
 
 
 ## Usage
-```javascript
+
 import RNAuthorizeNet from 'react-native-authorize-net-acceptsdk';
 
 
