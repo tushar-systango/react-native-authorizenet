@@ -47,30 +47,24 @@ import RNAuthorizeNet from 'react-native-authorize-net-acceptsdk';
 
 ### Keys used in parameter[cardValues] and the purpose of the keys:
 
-#### Required keys:
-		```
-		LOGIN_ID : "login_id of authorize.net in which the card will be added."
-		CLIENT_KEY : "client_key of authorize.net in which the card will be added."
-		CARD_NO : "card no"
-		EXPIRATION_MONTH : "expiration month of the card."
-		EXPIRATION_YEAR : "expiration year of the card."
-		CVV_NO : "cvv no of the card."
-		```
+#### Required keys:		
+	LOGIN_ID : "login_id of authorize.net in which the card will be added."
+	CLIENT_KEY : "client_key of authorize.net in which the card will be added."
+	CARD_NO : "card no"
+	EXPIRATION_MONTH : "expiration month of the card."
+	EXPIRATION_YEAR : "expiration year of the card."
+	CVV_NO : "cvv no of the card."		
 
 #### Optional keys:
-		```
-		ZIP_CODE : "zip code of billing address"
-		ACCOUNT_HOLDER_NAME : "card holder name"
-		ACCOUNT_HOLDER_EMAIL : "card holder email"
-		```
+	ZIP_CODE : "zip code of billing address"
+	ACCOUNT_HOLDER_NAME : "card holder name"
+	ACCOUNT_HOLDER_EMAIL : "card holder email"
 
 ### Keys used in response [responseObject] and the purpose of the keys: This will be used to add card on server using accept.js of auhorize.net
 
 #### Response Object Keys:
-		```
-		DATA_DESCRIPTOR = "card data descriptor"
-		DATA_VALUE = "card data value"
-		```
+	DATA_DESCRIPTOR = "card data descriptor"
+	DATA_VALUE = "card data value"
 
 
 
