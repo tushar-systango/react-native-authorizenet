@@ -1,21 +1,48 @@
-
 {
-  "name": "react-native-authorize-net-acceptsdk",
-  "version": "1.0.1",
-  "description": "`react-native-authorize-net-acceptsdk` is a package that allows you to: Fetch token by sending `card detail` to `AcceptSDK` for iOS and Android. You need to use this token to get the values of `DATA DESCRIPTOR` and `DATA VALUE` from the token.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "react-native-authorize-net-acceptsdk",
+  "_id": "react-native-authorize-net-acceptsdk@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-wymVzpXsc5+7ms18rxFY7tdnRokwF7mGxGHtT++N9MdpcV1VBkXSFSz2vrK5BcoOjsKqr4LKwEbTN8pXMAdDsQ==",
+  "_location": "/react-native-authorize-net-acceptsdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-native-authorize-net-acceptsdk",
+    "name": "react-native-authorize-net-acceptsdk",
+    "escapedName": "react-native-authorize-net-acceptsdk",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-authorize-net-acceptsdk/-/react-native-authorize-net-acceptsdk-1.0.1.tgz",
+  "_shasum": "8a4e812f1d331823ff894f98f912dd4256f897e1",
+  "_spec": "react-native-authorize-net-acceptsdk",
+  "_where": "/Users/macbook08/Projects/MFS/freshcode/mfs_rn_app",
+  "author": {
+    "name": "Tushar S"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "`react-native-authorize-net-acceptsdk` is a package that allows you to: Fetch token by sending `card detail` to `AcceptSDK` for iOS and Android. You need to use this token to get the values of `DATA DESCRIPTOR` and `DATA VALUE` from the token.",
   "homepage": "https://github.com/tushar-systango/react-native-authorizenet#readme",
   "keywords": [
     "react-native",
     "authorize.net",
     "acceptsdk"
   ],
-  "author": "Tushar S",
   "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-authorize-net-acceptsdk",
   "peerDependencies": {
-    "react-native": "^0.52.0"    
-  }
+    "react-native": "^0.52.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.1"
 }
